@@ -48,7 +48,7 @@ module alu(
 	    assign out_inst_0 = {8'b0 , reg_data_a[7:0]} + {8'b0 , reg_data_b[7:0]};
       assign out_inst_1 = {8'b0 , reg_data_b[7:0]} - {8'b0 , reg_data_a[7:0]};
       assign out_inst_2 = {8'b0 , reg_data_a[7:0]} * {8'b0 , reg_data_b[7:0]};
-      assign out_inst_3 = {9'b0, reg_data_a[7:1]};
+      assign out_inst_3 = {{9{reg_data_a[7]}}, reg_data_a[7:1]};
       assign reg_subtraction = {8'b0 , reg_data_b[7:0]} - {8'b0 , reg_data_a[7:0]};
       assign out_inst_4 = ~reg_subtraction[15:0];
       assign out_inst_5[15:8] = 8'b0;
@@ -58,61 +58,61 @@ module alu(
   /* ====================Combinational Part================== */
   //next-state logic
   always @(*) begin
-    case (inst_i):
+    case (reg_inst)
       3'b000: state_inst = inst_i;
       3'b001: state_inst = inst_i;
       3'b010:begin
-        if(reg_inst === 3'b000)
+        if(inst_i === 3'b000)
           state_inst = inst_i;
-        else if (reg_inst === 3'b001)
+        else if (inst_i === 3'b001)
           state_inst = inst_i;
-        else if (reg_inst === 3'b011)
+        else if (inst_i === 3'b011)
           state_inst = inst_i;
-        else if (reg_inst === 3'b101)
+        else if (inst_i === 3'b101)
           state_inst = inst_i;
-        else if (reg_inst === 3'b111)
+        else if (inst_i === 3'b111)
           state_inst = inst_i;
         else
-          state_inst = state;
+          state_inst = reg_inst;
       end
       3'b011:begin
-        if(reg_inst === 3'b000)
+        if(inst_i === 3'b000)
           state_inst = inst_i;
-        else if (reg_inst === 3'b001)
+        else if (inst_i === 3'b001)
           state_inst = inst_i;
-        else if (reg_inst === 3'b110)
+        else if (inst_i === 3'b110)
           state_inst = inst_i;
-        else if (reg_inst === 3'b111)
+        else if (inst_i === 3'b111)
           state_inst = inst_i;
         else
           state_inst = reg_inst;
       end
       3'b100:begin
-        if(reg_inst === 3'b001)
+        if(inst_i === 3'b001)
           state_inst = inst_i;
-        else if (reg_inst === 3'b101)
+        else if (inst_i === 3'b101)
           state_inst = inst_i;
-        else if (reg_inst === 3'b111)
+        else if (inst_i === 3'b111)
           state_inst = inst_i;
         else 
           state_inst = reg_inst;
       end
       3'b101:begin
-        if(reg_inst === 3'b000)
+        if(inst_i === 3'b000)
           state_inst = inst_i;
-        else if (reg_inst === 3'b001)
+        else if (inst_i === 3'b001)
           state_inst = inst_i;
-        else if (reg_inst === 3'b010)
+        else if (inst_i === 3'b010)
           state_inst = inst_i;
-        else if (reg_inst === 3'b111)
+        else if (inst_i === 3'b111)
           state_inst = inst_i;
         else
           state_inst = reg_inst;
       end
       3'b110:begin
-        if(reg_inst === 3'b001)
+        if(inst_i === 3'b001)
           state_inst = inst_i;
-        else if (reg_inst === 3'b101)
+        else if (inst_i === 3'b101)
           state_inst = inst_i;
         else
           state_inst = reg_inst;
@@ -136,7 +136,7 @@ module alu(
       3'b100:    ALU_out_inst = out_inst_4;
       3'b101:    ALU_out_inst = out_inst_5;
       3'b110:    ALU_out_inst = out_inst_6;
-      3'b111:    ALU_out_inst = out_inst_7;
+      3'b111:    ALU_out_inst = ALU_r;
       default:   ALU_out_inst = 0;
     endcase
   end
