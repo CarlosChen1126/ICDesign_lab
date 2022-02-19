@@ -58,61 +58,87 @@ module alu(
   /* ====================Combinational Part================== */
   //next-state logic
   always @(*) begin
-    case (reg_inst)
-      3'b000: state_inst = inst_i;
-      3'b001: state_inst = inst_i;
+    case (inst_i)
+      3'b000: begin
+        if(reg_inst === 3'b000)
+          state_inst = inst_i;
+        else if (reg_inst === 3'b001)
+          state_inst = inst_i;
+        else if (reg_inst === 3'b010)
+          state_inst = inst_i;
+        else if (reg_inst === 3'b011)
+          state_inst = inst_i;
+        else if (reg_inst === 3'b101)
+          state_inst = inst_i;
+        else
+          state_inst = reg_inst;
+      end
+      3'b001: begin
+        if(reg_inst === 3'b000)
+          state_inst = inst_i;
+        else if (reg_inst === 3'b001)
+          state_inst = inst_i;
+        else if (reg_inst === 3'b010)
+          state_inst = inst_i;
+        else if (reg_inst === 3'b011)
+          state_inst = inst_i;
+        else if (reg_inst === 3'b100)
+          state_inst = inst_i;
+        else if (reg_inst === 3'b101)
+          state_inst = inst_i;
+        else if (reg_inst === 3'b110)
+          state_inst = inst_i;
+        else
+          state_inst = reg_inst;
+      end
       3'b010:begin
-        if(inst_i === 3'b000)
+        if(reg_inst === 3'b000)
           state_inst = inst_i;
-        else if (inst_i === 3'b001)
+        else if (reg_inst === 3'b001)
           state_inst = inst_i;
-        else if (inst_i === 3'b011)
-          state_inst = inst_i;
-        else if (inst_i === 3'b101)
-          state_inst = inst_i;
-        else if (inst_i === 3'b111)
+        else if (reg_inst === 3'b101)
           state_inst = inst_i;
         else
           state_inst = reg_inst;
       end
       3'b011:begin
-        if(inst_i === 3'b000)
+        if(reg_inst === 3'b000)
           state_inst = inst_i;
-        else if (inst_i === 3'b001)
+        else if (reg_inst === 3'b001)
           state_inst = inst_i;
-        else if (inst_i === 3'b110)
-          state_inst = inst_i;
-        else if (inst_i === 3'b111)
+        else if (reg_inst === 3'b010)
           state_inst = inst_i;
         else
           state_inst = reg_inst;
       end
       3'b100:begin
-        if(inst_i === 3'b001)
+        if(reg_inst === 3'b000)
           state_inst = inst_i;
-        else if (inst_i === 3'b101)
+        else if (reg_inst === 3'b001)
           state_inst = inst_i;
-        else if (inst_i === 3'b111)
-          state_inst = inst_i;
-        else 
+        else
           state_inst = reg_inst;
       end
       3'b101:begin
-        if(inst_i === 3'b000)
+        if(reg_inst === 3'b000)
           state_inst = inst_i;
-        else if (inst_i === 3'b001)
+        else if (reg_inst === 3'b001)
           state_inst = inst_i;
-        else if (inst_i === 3'b010)
+        else if (reg_inst === 3'b010)
           state_inst = inst_i;
-        else if (inst_i === 3'b111)
+        else if (reg_inst === 3'b100)
+          state_inst = inst_i;
+        else if (reg_inst === 3'b110)
           state_inst = inst_i;
         else
           state_inst = reg_inst;
       end
       3'b110:begin
-        if(inst_i === 3'b001)
+        if(reg_inst === 3'b000)
           state_inst = inst_i;
-        else if (inst_i === 3'b101)
+        else if (reg_inst === 3'b001)
+          state_inst = inst_i;
+        else if (reg_inst === 3'b011)
           state_inst = inst_i;
         else
           state_inst = reg_inst;
